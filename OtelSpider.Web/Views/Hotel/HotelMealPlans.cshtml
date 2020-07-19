@@ -1,0 +1,126 @@
+﻿@model IEnumerable<OtelSpider.Web.ViewModels.HotelMealPlanVM>
+@{
+    ViewBag.Title = "HotelMealPlans";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>HotelMealPlans</h2>
+
+<div class="card mb-3">
+    <div class="card-header-tab card-header">
+        <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+            <button type="button" id="btnCreateMeal" class="btn btn-primary" data-toggle="modal" data-target="#AddEditModal">
+                Add Meal Plan
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+        <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.MealPlanName)
+                    </th>
+                    <td>
+                        @Html.DisplayNameFor(model => model.IsBase)
+                    </td>
+                    <th></th>
+                </tr>
+            </thead>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MealPlanName)
+                    </td>
+                    <td>
+                        @Html.CheckBoxFor(modelItem => item.IsBase, new { @disabled = "disabled" })
+                    </td>
+                    <td>
+                        <button type="button" data-id="@item.ID" class="btn btn-primary btnEditMeals" data-toggle="modal" data-target="#AddEditModal">
+                            Edit
+                        </button> |
+                        @Html.ActionLink("Delete", "DeleteRoomType", new { id = item.ID })
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade bd-example-modal-lg show" id="AddEditModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="form">
+        <div class="modal-content">
+            <div class="modal-body" id="modalBody">
+
+            </div>
+            <div class="modal-footer text-center" id="dvTablesAreaFooter">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".btnEditMeals").click(function () {
+                var id = $(this).attr("data-id");
+                EditMeals(id);
+            });
+            $("#btnCreateMeal").click(function () {
+                AddMealPlan();
+            });
+            function EditMeals(id) {
+                $.ajax({
+                    url: "/Hotel/_EditHotelMeals",
+                    type: "GET",
+                    data: { id: id },
+                    success: function (result) {
+                        showModal(result);
+                    }
+                });
+            }
+            function AddMealPlan() {
+                $.ajax({
+                    url: "/Hotel/_CreateHotelMeal",
+                    type: "GET",
+                    success: function (result) {
+                        showModal(result);
+                    }
+                });
+            }
+            function showModal(result) {
+                $("#modalBody").html(result);
+                $("#IsBase").click(function () {
+                    var conf = confirm("Changing the base meal plan will affect the existing base meal plan, are you want to change base meal plan?");
+                    if (conf) {
+                        if (this.checked)
+                            $("#divSupplements").hide();
+                        else
+                            $("#divSupplements").show();
+                    }
+                    else {
+                        event.preventDefault();
+                    }
+
+                });
+                $("#isPrecentage").change(function () {
+                    if ($(this).val() == "true")
+                        $("#precenMark").show();
+                    else
+                        $("#precenMark").hide();
+
+                });
+                if ($("#isPrecentage").val() !== "true")
+                    $("#precenMark").hide();
+
+                if ($("#IsBase").attr("checked"))
+                    $("#divSupplements").hide();
+            }
+        });
+    </script>
+}
+

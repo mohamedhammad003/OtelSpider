@@ -1,0 +1,61 @@
+﻿@model IEnumerable<OtelSpider.Web.ViewModels.RSPeriodViewModel>
+
+@{
+    ViewBag.Title = "RateStructurePeriod";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Rate Structure Period</h2>
+
+<div class="card mb-3">
+    <div class="card-header-tab card-header">
+        <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+            @Html.ActionLink("Create New", "AddRSPeriod", null, new { @class = "btn mr-2 mb-2 btn-primary" })
+        </div>
+    </div>
+    <div class="card-body">
+
+        <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PeriodName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.HotelID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.StartDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EndDate)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PeriodName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HotelID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EndDate)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "EditRSPeriod", new { id = item.ID }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                        @Html.ActionLink("Delete", "DeleteRSPeriod", new { id = item.ID , hotelID = item.HotelID })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>

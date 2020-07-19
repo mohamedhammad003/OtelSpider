@@ -1,0 +1,104 @@
+﻿@model IEnumerable<OtelSpider.Web.ViewModels.RoomTypeViewModel>
+
+@{
+    ViewBag.Title = "Hotel Room Types";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Hotel Room Types</h2>
+
+<div id="addEdit">
+</div>
+<div class="card mb-3">
+    <div class="card-body">
+        <div class="card-header-tab card-header">
+            <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+                <button type="button" id="btnCreateRoomTypes" class="btn btn-primary" data-toggle="modal" data-target="#AddEditModal">
+                    Add Room Type
+                </button>
+            </div>
+        </div>
+        <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Type)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Type)
+                    </td>
+                    <td>
+                        <button type="button" id="btnEditRoomTypes" data-id="@item.ID" class="btn btn-primary" data-toggle="modal" data-target="#AddEditModal">
+                            Edit
+                        </button> |
+                        @Html.ActionLink("Delete", "DeleteRoomType", new { id = item.ID })
+                    </td>
+                </tr>
+            }
+            <tfoot>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Type)
+                    </th>
+                    <th></th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade bd-example-modal-lg show" id="AddEditModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="form">
+        <div class="modal-content">
+            <div class="modal-body" id="modalBody">
+
+            </div>
+            <div class="modal-footer text-center" id="dvTablesAreaFooter">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#btnEditRoomTypes").click(function () {
+                var id = $("#btnEditRoomTypes").attr("data-id");
+                EditRoomType(id);
+            });
+            $("#btnCreateRoomTypes").click(function () {
+                AddRoomType();
+            });
+            function EditRoomType(id) {
+                $.ajax({
+                    url: "/Hotel/_EditRoomType",
+                    type: "GET",
+                    data: { id: id },
+                    success: function (result) {
+                        $("#modalBody").html(result);
+                    }
+                });
+            }
+            function AddRoomType() {
+                $.ajax({
+                    url: "/Hotel/_CreateRoomType",
+                    type: "GET",
+                    success: function (result) {
+                        $("#modalBody").html(result);
+                    }
+                });
+            }
+        });
+    </script>
+}
+

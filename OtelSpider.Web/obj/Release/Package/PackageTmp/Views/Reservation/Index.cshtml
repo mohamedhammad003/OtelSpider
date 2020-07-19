@@ -1,0 +1,127 @@
+﻿@model IEnumerable<OtelSpider.Web.ViewModels.AnnualReservationsViewModel>
+
+@{
+    ViewBag.Title = "Reservation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="accordion" class="accordion-wrapper mb-3">
+    <div class="card">
+        <div id="headingOne" class="card-header">
+            <button type="button" data-toggle="collapse" data-target="#collapseOne1" aria-expanded="false" aria-controls="collapseOne" class="text-left m-0 p-0 btn btn-link btn-block collapsed">
+                <h6 class="m-0 p-0">Progress</h6>
+            </button>
+        </div>
+        <div data-parent="#accordion" id="collapseOne1" aria-labelledby="headingOne" class="collapse" style="">
+            <div class="card-body">
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card mb-3">
+
+    <div class="card-body">
+        <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Year)</th>
+                    <th>@Html.DisplayNameFor(model => model.HotelName)</th>
+                    <th>@Html.DisplayNameFor(model => model.OTAName)</th>
+                    <th>@Html.DisplayNameFor(model => model.RoomNights)</th>
+                    <th>@Html.DisplayNameFor(model => model.GrossRoomRevenue)</th>
+                    <th>@Html.DisplayNameFor(model => model.GrossARR)</th>
+                    <th>@Html.DisplayNameFor(model => model.NetRoomRevenue)</th>
+                    <th>@Html.DisplayNameFor(model => model.NetARR)</th>
+                    <th>@Html.DisplayNameFor(model => model.TargetPrecentage)</th>
+                    <th>@Html.DisplayNameFor(model => model.TargetBudget)</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int currentYear = 0;
+                    foreach (var item in Model.OrderBy(x => x.Year).ThenBy(x => x.HotelID))
+                    {
+                        <tr class="annualRes" data-hId="@item.HotelID" data-oId="@item.OTAID" data-year="@item.Year">
+                            @if (currentYear != item.Year)
+                            {
+                                currentYear = item.Year;
+
+                                <td rowspan="@Model.Where(i => i.Year == currentYear).Count()">
+                                    @Html.DisplayFor(modelItem => item.Year)
+                                </td>
+                            }
+                            <td>
+                                @Html.DisplayFor(modelItem => item.HotelName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.OTAName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.RoomNights)
+                            </td>
+                            <td>
+                                $@Html.DisplayFor(modelItem => item.GrossRoomRevenue)
+                            </td>
+                            <td>
+                                $@Html.DisplayFor(modelItem => item.NetRoomRevenue)
+                            </td>
+                            <td>
+                                $@Html.DisplayFor(modelItem => item.GrossARR)
+                            </td>
+                            <td>
+                                $@Html.DisplayFor(modelItem => item.NetARR)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TargetPrecentage) %
+
+                                @if (item.TargetPrecentage > 100)
+                                {
+                                    <small class="text-success pl-2"><i class="fa fa-angle-up "></i></small>
+                                }
+                                else if (item.TargetPrecentage < 100)
+                                {
+                                    <small class="text-danger pl-2"><i class="fa fa-angle-down "></i></small>
+                                }
+                                else
+                                {
+                                    <small class="text-warning pl-2"><i class="fa fa-dot-circle "></i></small>
+                                }
+                            </td>
+                            <td>
+                                $@Html.DisplayFor(modelItem => item.TargetBudget)
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+
+        </table>
+    </div>
+
+
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".annualRes").click(function (item) {
+                debugger;
+                hotelId = $(this).attr("data-hId");
+                otaId = $(this).attr("data-oId");
+                year = $(this).attr("data-year");
+                getMonthlyReservations(hotelId, otaId, year);
+            });
+            function getMonthlyReservations(hotelId, otaId, year) {
+
+                $.ajax({
+                    url: "/Reservation/getMonthlyReservations",
+                    type: "GET",
+                    data: { hotelId: hotelId, otaId: otaId, year: year },
+                    success: function (res) {
+                        window.location.href = res;
+                    }
+                });
+            }
+        });
+    </script>
+}

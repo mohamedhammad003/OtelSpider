@@ -1,0 +1,202 @@
+﻿@model OtelSpider.Web.ViewModels.HotelBudgetViewModel
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .form-control {
+        display: inline !important;
+        margin-right: 10px;
+    }
+    .control-label {
+        margin-right: 10px;
+    }
+</style>
+<h2>Edit</h2>
+
+<div class="main-card mb-3 card">
+    <div class="card-body">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h4>BudgetViewModel</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.Budget.ID)
+                @Html.HiddenFor(model => model.RoomNights.ID)
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Budget.Year, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+
+                        @Html.DropDownListFor(model => model.Budget.Year, (IEnumerable<SelectListItem>)ViewBag.Years, "Select Year", new { @class = "custom-select", @id = "ddlYear" })
+
+                        @Html.ValidationMessageFor(model => model.Budget.Year, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Budget.Hotel.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.Budget.HotelID, (IEnumerable<SelectListItem>)ViewBag.Hotels, "select Hotel", new { @class = "custom-select", @id = "ddlHotel" })
+                        @Html.ValidationMessageFor(model => model.Budget.HotelID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Budget.Currency.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.Budget.CurrencyID, (IEnumerable<SelectListItem>)ViewBag.Currencies, "select Currency", new { @class = "custom-select", @id = "ddlCurrency" })
+                        @Html.ValidationMessageFor(model => model.Budget.CurrencyID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Budget.January, htmlAttributes: new { @class = "control-label col-md-3" })
+                    @Html.LabelFor(model => model.RoomNights.January, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Budget.January, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Budget.January, "", new { @class = "text-danger" })
+
+                        @Html.EditorFor(model => model.RoomNights.January, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.RoomNights.January, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Budget.February, htmlAttributes: new { @class = "control-label col-md-3" })
+                    @Html.LabelFor(model => model.RoomNights.February, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Budget.February, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Budget.February, "", new { @class = "text-danger" })
+
+                        @Html.EditorFor(model => model.RoomNights.February, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.RoomNights.February, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Budget.March, htmlAttributes: new { @class = "control-label col-md-3" })
+                    @Html.LabelFor(model => model.RoomNights.March, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Budget.March, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Budget.March, "", new { @class = "text-danger" })
+
+                        @Html.EditorFor(model => model.RoomNights.March, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.RoomNights.March, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Budget.April, htmlAttributes: new { @class = "control-label col-md-3" })
+                    @Html.LabelFor(model => model.RoomNights.April, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Budget.April, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Budget.April, "", new { @class = "text-danger" })
+
+                        @Html.EditorFor(model => model.RoomNights.April, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.RoomNights.April, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Budget.May, htmlAttributes: new { @class = "control-label col-md-3" })
+                    @Html.LabelFor(model => model.RoomNights.May, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Budget.May, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Budget.May, "", new { @class = "text-danger" })
+
+                        @Html.EditorFor(model => model.RoomNights.May, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.RoomNights.May, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Budget.June, htmlAttributes: new { @class = "control-label col-md-3" })
+                    @Html.LabelFor(model => model.RoomNights.June, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Budget.June, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Budget.June, "", new { @class = "text-danger" })
+
+                        @Html.EditorFor(model => model.RoomNights.June, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.RoomNights.June, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Budget.July, htmlAttributes: new { @class = "control-label col-md-3" })
+                    @Html.LabelFor(model => model.RoomNights.July, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Budget.July, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Budget.July, "", new { @class = "text-danger" })
+
+                        @Html.EditorFor(model => model.RoomNights.July, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.RoomNights.July, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Budget.August, htmlAttributes: new { @class = "control-label col-md-3" })
+                    @Html.LabelFor(model => model.RoomNights.August, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Budget.August, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Budget.August, "", new { @class = "text-danger" })
+
+                        @Html.EditorFor(model => model.RoomNights.August, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.RoomNights.August, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Budget.September, htmlAttributes: new { @class = "control-label col-md-3" })
+                    @Html.LabelFor(model => model.RoomNights.September, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Budget.September, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Budget.September, "", new { @class = "text-danger" })
+
+                        @Html.EditorFor(model => model.RoomNights.September, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.RoomNights.September, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Budget.October, htmlAttributes: new { @class = "control-label col-md-3" })
+                    @Html.LabelFor(model => model.RoomNights.October, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Budget.October, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Budget.October, "", new { @class = "text-danger" })
+
+                        @Html.EditorFor(model => model.RoomNights.October, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.RoomNights.October, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Budget.November, htmlAttributes: new { @class = "control-label col-md-3" })
+                    @Html.LabelFor(model => model.RoomNights.November, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Budget.November, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Budget.November, "", new { @class = "text-danger" })
+
+                        @Html.EditorFor(model => model.RoomNights.November, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.RoomNights.November, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Budget.December, htmlAttributes: new { @class = "control-label col-md-3" })
+                    @Html.LabelFor(model => model.RoomNights.December, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Budget.December, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Budget.December, "", new { @class = "text-danger" })
+
+                        @Html.EditorFor(model => model.RoomNights.December, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.RoomNights.December, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="mt-1 btn btn-primary" />
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    </div>
+</div>

@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.902
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OtelSpider.Web", "OtelSpider.Web\OtelSpider.Web.csproj", "{BE43EC58-D3B0-4BD0-88F7-4F9CD25A5B73}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OtelSpider.Core", "OtelSpider.Core\OtelSpider.Core.csproj", "{07E4888B-6D73-42B0-B64F-F64F7D28B28A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BE43EC58-D3B0-4BD0-88F7-4F9CD25A5B73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE43EC58-D3B0-4BD0-88F7-4F9CD25A5B73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE43EC58-D3B0-4BD0-88F7-4F9CD25A5B73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE43EC58-D3B0-4BD0-88F7-4F9CD25A5B73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07E4888B-6D73-42B0-B64F-F64F7D28B28A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07E4888B-6D73-42B0-B64F-F64F7D28B28A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07E4888B-6D73-42B0-B64F-F64F7D28B28A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07E4888B-6D73-42B0-B64F-F64F7D28B28A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B67BD057-8497-40EB-81CF-BBEED469C7D3}
+	EndGlobalSection
+EndGlobal

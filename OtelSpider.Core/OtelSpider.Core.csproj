@@ -1,0 +1,288 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{07E4888B-6D73-42B0-B64F-F64F7D28B28A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OtelSpider.Core</RootNamespace>
+    <AssemblyName>OtelSpider.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.3\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.3\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.1.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.HashCode, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.HashCode.1.1.0\lib\net461\Microsoft.Bcl.HashCode.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.EntityFrameworkCore, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.EntityFrameworkCore.3.1.2\lib\netstandard2.0\Microsoft.EntityFrameworkCore.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.EntityFrameworkCore.Abstractions, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.EntityFrameworkCore.Abstractions.3.1.2\lib\netstandard2.0\Microsoft.EntityFrameworkCore.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Caching.Abstractions, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Caching.Abstractions.3.1.2\lib\netstandard2.0\Microsoft.Extensions.Caching.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Caching.Memory, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Caching.Memory.3.1.2\lib\netstandard2.0\Microsoft.Extensions.Caching.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.3.1.2\lib\netstandard2.0\Microsoft.Extensions.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.Abstractions, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.Abstractions.3.1.2\lib\netstandard2.0\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.Binder, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.Binder.3.1.2\lib\netstandard2.0\Microsoft.Extensions.Configuration.Binder.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.3.1.2\lib\net461\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.3.1.2\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.3.1.2\lib\netstandard2.0\Microsoft.Extensions.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.3.1.2\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Options.3.1.2\lib\netstandard2.0\Microsoft.Extensions.Options.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Primitives.3.1.2\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections.Immutable, Version=1.2.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Collections.Immutable.1.7.0\lib\netstandard2.0\System.Collections.Immutable.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.4.7.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.7.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.3\lib\netstandard2.0\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.7.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.3\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BLL\Repositories\BudgetRepository.cs" />
+    <Compile Include="BLL\Repositories\HotelMealPlanRepository.cs" />
+    <Compile Include="BLL\Repositories\OccupancyFormulaRepository.cs" />
+    <Compile Include="BLL\Repositories\RateStructurePeriodRepository.cs" />
+    <Compile Include="BLL\Repositories\RateStructureSettingRepository.cs" />
+    <Compile Include="BLL\Repositories\CurrencyRepository.cs" />
+    <Compile Include="BLL\Repositories\DailyReservationRepository.cs" />
+    <Compile Include="BLL\Repositories\HotelOTARepository.cs" />
+    <Compile Include="BLL\Repositories\HotelParentRepository.cs" />
+    <Compile Include="BLL\Repositories\HotelRepository.cs" />
+    <Compile Include="BLL\Repositories\MarketRepository.cs" />
+    <Compile Include="BLL\Repositories\MealPlanRepository.cs" />
+    <Compile Include="BLL\Repositories\OTARepository.cs" />
+    <Compile Include="BLL\Repositories\ReservationStatusRepository.cs" />
+    <Compile Include="BLL\Repositories\RoomMealPlanRepository.cs" />
+    <Compile Include="BLL\Repositories\RoomNightRepository.cs" />
+    <Compile Include="BLL\Repositories\SingleReservationRepository.cs" />
+    <Compile Include="BLL\Repositories\ReservationRepository.cs" />
+    <Compile Include="BLL\Repositories\RoomTypeRepository.cs" />
+    <Compile Include="BLL\Repositories\SecurityUserRepository.cs" />
+    <Compile Include="BLL\Repositories\TokenRepository.cs" />
+    <Compile Include="BLL\Services\BudgetService.cs" />
+    <Compile Include="BLL\Services\CurrencyService.cs" />
+    <Compile Include="BLL\Services\HotelOTAService.cs" />
+    <Compile Include="BLL\Services\HotelService.cs" />
+    <Compile Include="BLL\Services\IBudgetService.cs" />
+    <Compile Include="BLL\Services\ICurrencyService.cs" />
+    <Compile Include="BLL\Services\IHotelOTAService.cs" />
+    <Compile Include="BLL\Services\IHotelService.cs" />
+    <Compile Include="BLL\Services\IMarketService.cs" />
+    <Compile Include="BLL\Services\IMealPlanService.cs" />
+    <Compile Include="BLL\Services\IOTAService.cs" />
+    <Compile Include="BLL\Services\IRateStructurePeriodService.cs" />
+    <Compile Include="BLL\Services\IRateStructureSettingService.cs" />
+    <Compile Include="BLL\Services\IReservationStatusService.cs" />
+    <Compile Include="BLL\Services\IOccupancyFormulaService.cs" />
+    <Compile Include="BLL\Services\IRoomNightService.cs" />
+    <Compile Include="BLL\Services\ISingleReservationService.cs" />
+    <Compile Include="BLL\Services\IReservationService.cs" />
+    <Compile Include="BLL\Services\IRoomTypeService.cs" />
+    <Compile Include="BLL\Services\ISecurityUserService.cs" />
+    <Compile Include="BLL\Services\ITokenService.cs" />
+    <Compile Include="BLL\Services\MarketService.cs" />
+    <Compile Include="BLL\Services\MealPlanService.cs" />
+    <Compile Include="BLL\Services\OTAService.cs" />
+    <Compile Include="BLL\Services\RateStructurePeriodService.cs" />
+    <Compile Include="BLL\Services\RateStructureSettingService.cs" />
+    <Compile Include="BLL\Services\ReservationStatusService.cs" />
+    <Compile Include="BLL\Services\OccupancyFormulaService.cs" />
+    <Compile Include="BLL\Services\RoomNightService.cs" />
+    <Compile Include="BLL\Services\SingleReservationService.cs" />
+    <Compile Include="BLL\Services\ReservationService.cs" />
+    <Compile Include="BLL\Services\RoomTypeService.cs" />
+    <Compile Include="BLL\Services\SecurityUserService.cs" />
+    <Compile Include="BLL\Services\TokenService.cs" />
+    <Compile Include="DAL\Data\OtelSpiderContext.cs" />
+    <Compile Include="DAL\Models\AvailableRoomNights.cs" />
+    <Compile Include="DAL\Models\Currency.cs" />
+    <Compile Include="DAL\Models\DailyReservation.cs" />
+    <Compile Include="DAL\Models\DailyReservationLogger.cs" />
+    <Compile Include="DAL\Models\Hotel.cs" />
+    <Compile Include="DAL\Models\HotelMarket.cs" />
+    <Compile Include="DAL\Models\HotelMealPlan.cs" />
+    <Compile Include="DAL\Models\HotelOTA.cs" />
+    <Compile Include="DAL\Models\HotelParent.cs" />
+    <Compile Include="DAL\Models\OccupancyFormula.cs" />
+    <Compile Include="DAL\Models\RateStructureSetting.cs" />
+    <Compile Include="DAL\Models\Market.cs" />
+    <Compile Include="DAL\Models\MealPlan.cs" />
+    <Compile Include="DAL\Models\HotelBudget.cs" />
+    <Compile Include="DAL\Models\MonthlyReservationLogger.cs" />
+    <Compile Include="DAL\Models\OTA.cs" />
+    <Compile Include="DAL\Models\MonthlyReservation.cs" />
+    <Compile Include="DAL\Models\RateStructurePeriod.cs" />
+    <Compile Include="DAL\Models\RegisterationToken.cs" />
+    <Compile Include="DAL\Models\RoomMealPlan.cs" />
+    <Compile Include="DAL\Models\SingleReservation.cs" />
+    <Compile Include="DAL\Models\ReservationStatus.cs" />
+    <Compile Include="DAL\Models\RoomType.cs" />
+    <Compile Include="DAL\Models\SingleReservationLogger.cs" />
+    <Compile Include="DAL\Models\SystemPermission.cs" />
+    <Compile Include="DAL\Models\SystemUser.cs" />
+    <Compile Include="DAL\Models\UserHotel.cs" />
+    <Compile Include="DAL\Models\UserPermission.cs" />
+    <Compile Include="Infrastructure\DbFactory.cs" />
+    <Compile Include="Infrastructure\Disposable.cs" />
+    <Compile Include="Infrastructure\IDbFactory.cs" />
+    <Compile Include="Infrastructure\IRepository.cs" />
+    <Compile Include="Infrastructure\IUnitOfWork.cs" />
+    <Compile Include="Infrastructure\RepositoryBase.cs" />
+    <Compile Include="Infrastructure\UnitOfWork.cs" />
+    <Compile Include="Migrations\202002222336457_InitialCreation.cs" />
+    <Compile Include="Migrations\202002222336457_InitialCreation.designer.cs">
+      <DependentUpon>202002222336457_InitialCreation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003050053092_RegisterationToken.cs" />
+    <Compile Include="Migrations\202003050053092_RegisterationToken.designer.cs">
+      <DependentUpon>202003050053092_RegisterationToken.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004122140450_RateStructureCreation.cs" />
+    <Compile Include="Migrations\202004122140450_RateStructureCreation.designer.cs">
+      <DependentUpon>202004122140450_RateStructureCreation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004130143554_RateStructureInitialCreation.cs" />
+    <Compile Include="Migrations\202004130143554_RateStructureInitialCreation.designer.cs">
+      <DependentUpon>202004130143554_RateStructureInitialCreation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004221805341_RateStructureUpdates.cs" />
+    <Compile Include="Migrations\202004221805341_RateStructureUpdates.designer.cs">
+      <DependentUpon>202004221805341_RateStructureUpdates.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004301929457_RateStructureSupplements.cs" />
+    <Compile Include="Migrations\202004301929457_RateStructureSupplements.designer.cs">
+      <DependentUpon>202004301929457_RateStructureSupplements.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005051921545_CreateOccupancyFormula_RoomMealPlan.cs" />
+    <Compile Include="Migrations\202005051921545_CreateOccupancyFormula_RoomMealPlan.designer.cs">
+      <DependentUpon>202005051921545_CreateOccupancyFormula_RoomMealPlan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202002222336457_InitialCreation.resx">
+      <DependentUpon>202002222336457_InitialCreation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003050053092_RegisterationToken.resx">
+      <DependentUpon>202003050053092_RegisterationToken.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004122140450_RateStructureCreation.resx">
+      <DependentUpon>202004122140450_RateStructureCreation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004130143554_RateStructureInitialCreation.resx">
+      <DependentUpon>202004130143554_RateStructureInitialCreation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004221805341_RateStructureUpdates.resx">
+      <DependentUpon>202004221805341_RateStructureUpdates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004301929457_RateStructureSupplements.resx">
+      <DependentUpon>202004301929457_RateStructureSupplements.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005051921545_CreateOccupancyFormula_RoomMealPlan.resx">
+      <DependentUpon>202005051921545_CreateOccupancyFormula_RoomMealPlan.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.0\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.0\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" />
+</Project>

@@ -1,0 +1,47 @@
+﻿@model IEnumerable<OtelSpider.Web.ViewModels.TokenViewModel>
+
+@{
+    ViewBag.Title = "Tokens";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card mb-3">
+    <h2>Tokens</h2>
+    <div class="card-header-tab card-header">
+        <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+            @Html.ActionLink("Generate Token", "CreateToken", null, new { @class = "btn mr-2 mb-2 btn-primary" })
+        </div>
+    </div>
+    <div class="card-body">
+        <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Token)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UserEmail)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RegisterLink)
+                    </th>
+                </tr>
+            </thead>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Token)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserEmail)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RegisterLink)
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>

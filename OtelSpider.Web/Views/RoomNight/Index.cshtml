@@ -1,0 +1,61 @@
+﻿@model IEnumerable<OtelSpider.Web.ViewModels.RoomNightsViewModel>
+
+@{
+    ViewBag.Title = "Room Nights";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Available Room Nights</h2>
+
+<div class="card mb-3">
+    <div class="card-header-tab card-header">
+        <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+            @Html.ActionLink("Create New", "Create", null, new { @class = "btn mr-2 mb-2 btn-primary" })
+        </div>
+    </div>
+    <div class="card-body">
+        <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered">
+            <tr style="font-size:0.75rem">
+                <th>@Html.DisplayNameFor(model => model.Hotel.Name)</th>
+                <th>@Html.DisplayNameFor(model => model.Year)</th>
+                <th>@Html.DisplayNameFor(model => model.January)</th>
+                <th>@Html.DisplayNameFor(model => model.February)</th>
+                <th>@Html.DisplayNameFor(model => model.March)</th>
+                <th>@Html.DisplayNameFor(model => model.April)</th>
+                <th>@Html.DisplayNameFor(model => model.May)</th>
+                <th>@Html.DisplayNameFor(model => model.June)</th>
+                <th>@Html.DisplayNameFor(model => model.July)</th>
+                <th>@Html.DisplayNameFor(model => model.August)</th>
+                <th>@Html.DisplayNameFor(model => model.September)</th>
+                <th>@Html.DisplayNameFor(model => model.October)</th>
+                <th>@Html.DisplayNameFor(model => model.November)</th>
+                <th>@Html.DisplayNameFor(model => model.December)</th>
+                <th></th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Hotel.Name)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Year)</td>
+                    <td>@Html.DisplayFor(modelItem => item.January)</td>
+                    <td>@Html.DisplayFor(modelItem => item.February)</td>
+                    <td>@Html.DisplayFor(modelItem => item.March)</td>
+                    <td>@Html.DisplayFor(modelItem => item.April)</td>
+                    <td>@Html.DisplayFor(modelItem => item.May)</td>
+                    <td>@Html.DisplayFor(modelItem => item.June)</td>
+                    <td>@Html.DisplayFor(modelItem => item.July)</td>
+                    <td>@Html.DisplayFor(modelItem => item.August)</td>
+                    <td>@Html.DisplayFor(modelItem => item.September)</td>
+                    <td>@Html.DisplayFor(modelItem => item.October)</td>
+                    <td>@Html.DisplayFor(modelItem => item.November)</td>
+                    <td>@Html.DisplayFor(modelItem => item.December)</td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+

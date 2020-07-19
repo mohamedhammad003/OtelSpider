@@ -1,0 +1,98 @@
+﻿@model OtelSpider.Web.ViewModels.DailyReservationViewModel
+
+@{
+    ViewBag.Title = "Daily Reservation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="accordion" class="accordion-wrapper mb-3">
+    <div class="card">
+        <div id="headingOne" class="card-header">
+            <button type="button" data-toggle="collapse" data-target="#collapseOne1" aria-expanded="false" aria-controls="collapseOne" class="text-left m-0 p-0 btn btn-link btn-block collapsed">
+                <h6 class="m-0 p-0">Advanced Search</h6>
+            </button>
+        </div>
+        <div data-parent="#accordion" id="collapseOne1" aria-labelledby="headingOne" class="collapse" style="">
+            <div class="card-body">
+                @if (Model.lstHotels.Count() > 1)
+                {
+                    <select class="custom-select" id="ddlHotels">
+                        <option>-Select Hotel-</option>
+                        @foreach (var item in Model.lstHotels)
+                        {
+                            <option value="@item.ID">@item.Name</option>
+                        }
+                    </select>
+                }
+                <select class="custom-select" id="ddlOTAs">
+                    <option>-Select OTA-</option>
+                    @foreach (var item in Model.lstOTAs)
+                    {
+                        <option value="@item.ID">@item.Name</option>
+                    }
+                </select>
+                @Html.DropDownListFor(model => model.SelectedYear, (IEnumerable<SelectListItem>)ViewBag.Years, "Select Year", new { @class = "custom-select", @id = "ddlYear" })
+                @Html.DropDownListFor(model => model.SelectedMonth, (IEnumerable<SelectListItem>)ViewBag.Months, "Select Month", new { @class = "custom-select", @id = "ddlMonth" })
+
+                <button type="button" id="btnFilter" onclick="" class="btn btn-primary">
+                    Search
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="mainView">
+    @Html.Partial("_GetDailyResList", Model.dailyReservations)
+</div>
+<!-- Modal -->
+<div class="modal fade bs-example-modal-lg" id="importModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-md" role="form">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Import Daily Reservations</h4>
+            </div>
+            <div class="modal-body">
+                <form action="uploadDailyReport" method="post" enctype="multipart/form-data">
+                    <div class="text-center" style="float:left">
+                        <input type="file" name="file" id="file" class="form-control-file" />
+                    </div>
+                    <input type="submit" class="btn btn-primary" style="float:right" />
+                </form>
+            </div>
+            <div class="modal-footer text-center" id="dvTablesAreaFooter">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#btnFilter").click(function () {
+                filterReservations();
+            });
+            function filterReservations() {
+                var hotelId
+                if (!$("#ddlHotels").val())
+                    hotelId = null;
+                else
+                    hotelId = $("#ddlHotels").val();
+
+                $.ajax({
+                    url: "/Reservation/FilteredDailyReservations",
+                    type: "GET",
+                    data: { hotelId: hotelId, otaId: $("#ddlOTAs").val(), year: $("#ddlYear").val(), month: $("#ddlMonth").val() },
+                    success: function (res) {
+                        $.ajax({
+                            url: "/Reservation/_GetDailyResList",
+                            type: "GET",
+                            data: { dailyReservations: res },
+                            success: function (result) {
+                                $("#mainView").html(result);
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    </script>
+}

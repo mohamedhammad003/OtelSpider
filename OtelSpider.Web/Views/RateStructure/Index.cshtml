@@ -1,0 +1,263 @@
+﻿@model OtelSpider.Web.ViewModels.RateStructureReportVM
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    ul {
+        list-style-type: none;
+    }
+
+    body {
+        font-family: Verdana, sans-serif;
+    }
+
+    .month {
+        width: 25%;
+        background: #1abc9c;
+        text-align: center;
+    }
+
+        .month ul {
+            margin: 0;
+            padding: 0;
+        }
+
+            .month ul li {
+                color: white;
+                font-size: 20px;
+            }
+
+        .month .prev {
+            float: left;
+            padding-top: 10px;
+        }
+
+        .month .next {
+            float: right;
+            padding-top: 10px;
+        }
+
+    .weekdays {
+        margin: 0;
+        width: 25%;
+        padding: 10px 0;
+        background-color: #ddd;
+    }
+
+        .weekdays li {
+            display: inline-block;
+            width: 13%;
+            color: #666;
+            text-align: center;
+        }
+
+    .days {
+        padding: 10px 0;
+        width: 25%;
+        background: #eee;
+        margin: 0;
+    }
+
+        .days li {
+            list-style-type: none;
+            display: inline-block;
+            width: 13%;
+            text-align: center;
+            margin-bottom: 5px;
+            font-size: 12px;
+            color: #777;
+        }
+
+            .days li .active {
+                padding: 5px;
+                background: #1abc9c;
+                color: white !important
+            }
+</style>
+
+<h4>Rate Structure Report</h4>
+
+<div id="accordion1" class="accordion-wrapper mb-3">
+    <div class="card">
+        <div id="headingOne" class="card-header">
+            <button type="button" data-toggle="collapse" data-target="#collapseOne1" aria-expanded="false" aria-controls="collapseOne" class="text-left m-0 p-0 btn btn-link btn-block collapsed">
+                <h6 class="m-0 p-0">Single</h6>
+            </button>
+        </div>
+        <div data-parent="#accordion1" id="collapseOne1" aria-labelledby="headingOne" class="collapse" style="">
+            <div class="card-body">
+                @foreach (var item in Model.RSPeriods)
+                {
+                    <div class="month">
+                        <ul>
+                            <li>
+                                @item.PeriodName
+                            </li>
+                        </ul>
+                    </div>
+
+                    <ul class="weekdays">
+                        <li></li>
+                        @foreach (var meal in Model.hotelMealPlans)
+                        {
+                            <li>@meal.Abbreviation</li>
+                        }
+
+                    </ul>
+
+                    foreach (var room in Model.RoomTypes)
+                    {
+                        <ul class="days">
+                            <li>@room.Abbreviation</li>
+                            @{var formula = room.OccupancyFormulas.FirstOrDefault(f => f.Capacity == 1);
+                                if (formula != null)
+                                {
+                                    foreach (var roomMeal in Model.hotelMealPlans)
+                                    {
+                                        if (room.RoomMealPlans.Any(x => x.MealPlanID == roomMeal.MealPlanID))
+                                        {
+                                            <li>@OtelSpider.Web.Helpers.RateStructureHelper.CalculateRate(Model,item.ID, room.ID, formula.ID, roomMeal.MealPlanID)</li>
+                                        }
+                                        else
+                                        {
+                                            <li>x</li>
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    <li>x</li>
+                                }
+                            }
+                        </ul>
+                    }
+
+                }
+                @foreach (var item in Model.RSPeriods)
+                {
+                    <div class="month">
+                        <ul>
+                            <li>
+                                @item.PeriodName
+                            </li>
+                        </ul>
+                    </div>
+
+                    <ul class="weekdays">
+                        <li></li>
+                        @foreach (var meal in Model.hotelMealPlans)
+                        {
+                            <li>@meal.Abbreviation</li>
+                        }
+
+                    </ul>
+
+
+                    foreach (var room in Model.RoomTypes)
+                    {
+                        <ul class="days">
+                            <li>@room.Abbreviation</li>
+                            @{var formula = room.OccupancyFormulas.FirstOrDefault(f => f.Capacity == 1);
+                                if (formula != null)
+                                {
+                                    foreach (var roomMeal in Model.hotelMealPlans)
+                                    {
+                                        if (room.RoomMealPlans.Any(x => x.MealPlanID == roomMeal.MealPlanID))
+                                        {
+                                            <li>@OtelSpider.Web.Helpers.RateStructureHelper.CalculateRate(Model,item.ID, room.ID, formula.ID, roomMeal.MealPlanID)</li>
+                                        }
+                                        else
+                                        {
+                                            <li>x</li>
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    <li>x</li>
+                                }
+                            }
+                        </ul>
+                    }
+
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<div id="accordion2" class="accordion-wrapper mb-3">
+    <div class="card">
+        <div id="headingOne" class="card-header">
+            <button type="button" data-toggle="collapse" data-target="#collapseOne2" aria-expanded="false" aria-controls="collapseOne" class="text-left m-0 p-0 btn btn-link btn-block collapsed">
+                <h6 class="m-0 p-0">Double</h6>
+            </button>
+        </div>
+        <div data-parent="#accordion2" id="collapseOne2" aria-labelledby="headingOne" class="collapse" style="">
+            <div class="card-body">
+
+            </div>
+        </div>
+    </div>
+</div>
+<div id="accordion3" class="accordion-wrapper mb-3">
+    <div class="card">
+        <div id="headingOne" class="card-header">
+            <button type="button" data-toggle="collapse" data-target="#collapseOne3" aria-expanded="false" aria-controls="collapseOne" class="text-left m-0 p-0 btn btn-link btn-block collapsed">
+                <h6 class="m-0 p-0">Triple</h6>
+            </button>
+        </div>
+        <div data-parent="#accordion3" id="collapseOne3" aria-labelledby="headingOne" class="collapse" style="">
+            <div class="card-body">
+
+            </div>
+        </div>
+    </div>
+</div>
+<div id="accordion4" class="accordion-wrapper mb-3">
+    <div class="card">
+        <div id="headingOne" class="card-header">
+            <button type="button" data-toggle="collapse" data-target="#collapseOne4" aria-expanded="false" aria-controls="collapseOne" class="text-left m-0 p-0 btn btn-link btn-block collapsed">
+                <h6 class="m-0 p-0">Quad</h6>
+            </button>
+        </div>
+        <div data-parent="#accordion4" id="collapseOne4" aria-labelledby="headingOne" class="collapse" style="">
+            <div class="card-body">
+
+            </div>
+        </div>
+    </div>
+</div>
+<div id="accordion5" class="accordion-wrapper mb-3">
+    <div class="card">
+        <div id="headingOne" class="card-header">
+            <button type="button" data-toggle="collapse" data-target="#collapseOne5" aria-expanded="false" aria-controls="collapseOne" class="text-left m-0 p-0 btn btn-link btn-block collapsed">
+                <h6 class="m-0 p-0">Family</h6>
+            </button>
+        </div>
+        <div data-parent="#accordion5" id="collapseOne5" aria-labelledby="headingOne" class="collapse" style="">
+            <div class="card-body">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //$(".accordion-wrapper").hide();
+            debugger;
+            var capacities =  @Html.Raw(Json.Encode(Model.RoomTypes.GroupBy(x => new { x.HotelID, x.MinCapacity, x.RoomCapacity }).Select(r => new { maxCapacity = r.Max(n => n.RoomCapacity), minCapacity = r.Min(n => n.MinCapacity) })));
+
+            for (var i = capacities.minCapacity; i <= capacities.maxCapacity; i++) {
+                $("#accordion" + i).show();
+            }
+        });
+
+    </script>
+}

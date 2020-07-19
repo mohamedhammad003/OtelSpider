@@ -1,0 +1,167 @@
+﻿@model OtelSpider.Web.ViewModels.RoomTypeViewModel
+
+<style>
+    .form-control {
+        display: inline !important;
+        margin-right: 10px;
+    }
+</style>
+
+<div class="card mb-3">
+    <div class="card-body">
+        @using (Html.BeginForm("CreateRoomType", "Hotel"))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h4>Add Room Types</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Hotel.Name, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @Html.DropDownListFor(model => model.HotelID, (IEnumerable<SelectListItem>)ViewBag.lstHotels, "Select Hotel", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.HotelID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-3" })
+                    @Html.LabelFor(model => model.Abbreviation, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="col-md-11">
+                        @Html.EditorFor(model => model.Type, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+
+                        @Html.EditorFor(model => model.Abbreviation, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Abbreviation, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MinCapacity, htmlAttributes: new { @class = "control-label col-md-3" })
+                    @Html.LabelFor(model => model.RoomCapacity, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="col-md-11">
+                        @Html.EditorFor(model => model.MinCapacity, new { htmlAttributes = new { @class = "form-control", @max = "5", @min = "1" } })
+                        @Html.ValidationMessageFor(model => model.MinCapacity, "", new { @class = "text-danger" })
+
+                        @Html.EditorFor(model => model.RoomCapacity, new { htmlAttributes = new { @class = "form-control", @max = "5", @min = "1" } })
+                        @Html.ValidationMessageFor(model => model.RoomCapacity, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.IsBase, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @Html.CheckBoxFor(model => model.IsBase, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.IsBase, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div id="divSupplements">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.AdditionValue, htmlAttributes: new { @class = "control-label col-md-3" })
+                        @Html.LabelFor(model => model.OccupancyRate, htmlAttributes: new { @class = "control-label col-md-3" })
+                        <div class="col-md-11">
+                            @Html.EditorFor(model => model.AdditionValue, new { htmlAttributes = new { @class = "form-control" } })
+                            <span id="precenMark" style="margin-left: -10px;">%</span>
+                            @Html.ValidationMessageFor(model => model.AdditionValue, "", new { @class = "text-danger" })
+
+                            @Html.DropDownListFor(model => model.OccupancyRate, new List<SelectListItem>() {
+                                               new SelectListItem() { Text = "Per Person Rate", Value = "true" },
+                                               new SelectListItem() { Text = "Room Rate", Value = "false" } }, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.OccupancyRate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.isSubstraction, htmlAttributes: new { @class = "control-label col-md-3" })
+                        @Html.LabelFor(model => model.isPrecentage, htmlAttributes: new { @class = "control-label col-md-3" })
+                        <div class="col-md-11">
+                            @Html.DropDownListFor(model => model.isSubstraction, new List<SelectListItem>() {
+                                               new SelectListItem() { Text = "Addition", Value = "false" },
+                                               new SelectListItem() { Text = "Substract", Value = "true" }}, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.isSubstraction, "", new { @class = "text-danger" })
+
+                            @Html.DropDownListFor(model => model.isPrecentage, new List<SelectListItem>() {
+                                               new SelectListItem() { Text = "Precentage", Value = "true" },
+                                               new SelectListItem() { Text = "Amount", Value = "false" } }, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.isPrecentage, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-9">
+                        <input type="submit" value="Create" id="btnSubmit" class="mt-1 btn btn-primary" />
+                    </div>
+                </div>
+            </div>
+        }
+        <div>
+            @Html.ActionLink("Back", "HotelRoomTypes", null, new { @class = "btn mr-2 mb-2 btn-cancel" })
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var roomId = $("#ID").val();
+            $("#IsBase").click(function () {
+                var conf = confirm("Changing the base room will affect the existing Base Room, are you want to change base room?");
+                if (conf) {
+                    if (this.checked)
+                        $("#divSupplements").hide();
+                    else
+                        $("#divSupplements").show();
+                }
+                else {
+                    event.preventDefault();
+                }
+            });
+
+            $("#isPrecentage").change(function () {
+                if ($(this).val() == "true")
+                    $("#precenMark").show();
+                else
+                    $("#precenMark").hide();
+
+            });
+
+
+            $("#MinCapacity").change(function () {
+                //e.preventDefault;
+                capacityChange();
+            });
+
+            $("#RoomCapacity").change(function () {
+                capacityChange();
+            });
+
+            
+            setupRoomModal();
+
+        });
+        function setupRoomModal() {
+
+            if ($("#IsBase").attr("checked"))
+                $("#divSupplements").hide();
+
+            if ($("#isPrecentage").val() !== "true")
+                $("#precenMark").hide();
+
+        }
+        function capacityChange() {
+            var minCap = $("#MinCapacity").val();
+            var maxCap = $("#RoomCapacity").val();
+            if (minCap > maxCap) {
+                event.preventDefault();
+            }
+
+        }
+
+
+    </script>
+}

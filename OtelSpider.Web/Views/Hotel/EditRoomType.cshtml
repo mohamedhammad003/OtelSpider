@@ -1,0 +1,323 @@
+﻿@model OtelSpider.Web.ViewModels.RoomTypeViewModel
+
+@{
+    ViewBag.Title = "Hotel Room Types";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .form-control {
+        display: inline !important;
+        margin-right: 10px;
+    }
+
+    .clacIcon {
+        width: fit-content;
+    }
+</style>
+<div class="card mb-3">
+    <div class="card-body">
+        @using (Html.BeginForm("EditRoomType", "Hotel"))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h4>Edit Room Type</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.ID)
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Hotel.Name, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @Html.DropDownListFor(model => model.HotelID, (IEnumerable<SelectListItem>)ViewBag.lstHotels, "Select Hotel", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.HotelID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-3" })
+                    @Html.LabelFor(model => model.Abbreviation, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="col-md-11">
+                        @Html.EditorFor(model => model.Type, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+
+                        @Html.EditorFor(model => model.Abbreviation, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Abbreviation, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MinCapacity, htmlAttributes: new { @class = "control-label col-md-3" })
+                    @Html.LabelFor(model => model.RoomCapacity, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="col-md-11">
+                        @Html.EditorFor(model => model.MinCapacity, new { htmlAttributes = new { @class = "form-control", @max = "5", @min = "1" } })
+                        @Html.ValidationMessageFor(model => model.MinCapacity, "", new { @class = "text-danger" })
+
+                        @Html.EditorFor(model => model.RoomCapacity, new { htmlAttributes = new { @class = "form-control", @max = "5", @min = "1" } })
+                        @Html.ValidationMessageFor(model => model.RoomCapacity, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.IsBase, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @Html.CheckBoxFor(model => model.IsBase, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.IsBase, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div id="divSupplements">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.AdditionValue, htmlAttributes: new { @class = "control-label col-md-3" })
+                        @Html.LabelFor(model => model.isPrecentage, htmlAttributes: new { @class = "control-label col-md-3" })
+                        <div class="col-md-11">
+                            @Html.EditorFor(model => model.AdditionValue, new { htmlAttributes = new { @class = "form-control" } })
+                            <span id="precenMark" style="margin-left: -10px;">%</span>
+                            @Html.ValidationMessageFor(model => model.AdditionValue, "", new { @class = "text-danger" })
+
+                            @Html.DropDownListFor(model => model.isPrecentage, new List<SelectListItem>() {
+                                               new SelectListItem() { Text = "Precentage", Value = "true" },
+                                               new SelectListItem() { Text = "Amount", Value = "false" } }, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.isPrecentage, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.isSubstraction, htmlAttributes: new { @class = "control-label col-md-3" })
+                        @Html.LabelFor(model => model.OccupancyRate, htmlAttributes: new { @class = "control-label col-md-3" })
+                        <div class="col-md-11">
+                            @Html.DropDownListFor(model => model.isSubstraction, new List<SelectListItem>() {
+                                               new SelectListItem() { Text = "Addition", Value = "false" },
+                                               new SelectListItem() { Text = "Substract", Value = "true" }}, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.isSubstraction, "", new { @class = "text-danger" })
+
+                            @Html.DropDownListFor(model => model.OccupancyRate, new List<SelectListItem>() {
+                                               new SelectListItem() { Text = "Per Person Rate", Value = "true" },
+                                               new SelectListItem() { Text = "Room Rate", Value = "false" } }, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.OccupancyRate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                </div>
+
+                <div id="divOccupancyFormulas">
+                    <hr />
+                    <div class="col-md-11">
+                        <label class="control-label col-md-4" style="font-weight:bolder;">Occupancy Formulas</label>
+                    </div>
+
+                    @for (int i = Model.MinCapacity; i <= Model.RoomCapacity; i++)
+                    {
+                        if (i > 0)
+                        {
+                            <div class="col-md-11 " style="display: inline-flex;">
+                                @{ var baseFormula = Model.OccupancyFormulas.FirstOrDefault(o => o.IsBase == true);
+                                    if (baseFormula == null && i == 2)
+                                    {
+                                        <div style="padding: 10px 0px;margin-right: 20px;">
+                                            <input type="radio" value="@i" name="rdFormulaBase" class="rdFormulaBase" checked disabled /> @i
+                                        </div>
+                                        <div class="font-icon-wrapper clacIcon" id="divCalc_@i" style="display:none">
+                                            <i class="pe-7s-calculator FormulaCalculator" data-toggle="modal" data-target="#formulaModal"> </i>
+                                        </div>
+                                    }
+                                    else if (baseFormula != null && baseFormula.Capacity == i)
+                                    {
+                                        <div style="padding: 10px 0px;margin-right: 20px;">
+                                            <input type="radio" value="@i" name="rdFormulaBase" class="rdFormulaBase" checked disabled /> @i
+                                        </div>
+                                        <div class="font-icon-wrapper clacIcon" id="divCalc_@i" style="display:none">
+                                            <i class="pe-7s-calculator FormulaCalculator" data-toggle="modal" data-target="#formulaModal"> </i>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div style="padding: 10px 0px;margin-right: 20px;">
+                                            <input type="radio" value="@i" name="rdFormulaBase" class="rdFormulaBase" /> @i
+                                        </div>
+                                        <div class="font-icon-wrapper clacIcon" id="divCalc_@i">
+                                            <i class="pe-7s-calculator FormulaCalculator" data-Capacity="@i" data-toggle="modal" data-target="#formulaModal"> </i>
+                                        </div>
+                                        <div>
+                                            @{ var formula = Model.OccupancyFormulas.FirstOrDefault(f => f.Capacity == i);
+                                                if (formula != null)
+                                                {
+                                                    if (formula.isSubstraction) { <span style="font-weight:bold;"> - </span> }
+                                                    else {<span style="font-weight:bold;"> + </span> }
+                                                    
+                                                    <span>@formula.AdditionalValue</span>
+                                                    if (formula.isPrecentage) { <span> % </span>}
+                                                }
+                                            }
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        }
+                    }
+                </div>
+                <hr />
+                <div class="col-md-11">
+                    <label class="control-label col-md-4" style="font-weight:bolder;">Associated Meal Plans</label>
+                </div>
+                @foreach (OtelSpider.Web.ViewModels.HotelMealPlanVM item in (IEnumerable<OtelSpider.Web.ViewModels.HotelMealPlanVM>)ViewBag.MealPlans)
+                {
+                    <div class="form-group">
+                        <div class="col-md-11">
+                            @if (Model.RoomMealPlans.Select(m => m.MealPlanID).Contains(item.MealPlanID))
+                            {
+                                <input type="checkbox" class="chkMealPlans" value="@item.MealPlanID" data-mealId="@item.MealPlanID" checked /> @item.MealPlanName
+                            }
+                            else
+                            {
+                                <input type="checkbox" class="chkMealPlans" value="@item.MealPlanID" data-mealId="@item.MealPlanID" /> @item.MealPlanName
+
+                            }
+                        </div>
+                    </div>
+                }
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-11">
+                        <input type="submit" id="btnSubmit" value="Save" class="mt-1 btn btn-primary" />
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="formulaModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-md" role="form">
+        <div class="modal-content">
+            <div class="modal-body" id="occupancyModal">
+
+            </div>
+            <div class="modal-footer text-center" id="dvTablesAreaFooter">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+        <div>
+            @Html.ActionLink("Back", "HotelRoomTypes", null, new { @class = "btn mr-2 mb-2 btn-cancel" })
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var roomId = $("#ID").val();
+            $("#IsBase").click(function () {
+                var conf = confirm("Changing the base room will affect the existing Base Room, are you want to change base room?");
+                if (conf) {
+                    if (this.checked)
+                        $("#divSupplements").hide();
+                    else
+                        $("#divSupplements").show();
+                }
+                else {
+                    event.preventDefault();
+                }
+            });
+
+            $("#isPrecentage").change(function () {
+                if ($(this).val() == "true")
+                    $("#precenMark").show();
+                else
+                    $("#precenMark").hide();
+
+            });
+
+            $("#btnSubmit").click(function () {
+                var roomMealPlans = [];
+                $(".chkMealPlans").each(function () {
+                    if (this.checked)
+                        roomMealPlans.push(this.value);
+                });
+                $.ajax({
+                    url: "/Hotel/UpdateRoomMealPlans",
+                    type: "POST",
+                    data: { mealIDs: roomMealPlans, roomID: roomId },
+                    success: function (result) {
+                    }
+                });
+            });
+
+            $("#MinCapacity").change(function () {
+                //e.preventDefault;
+                capacityChange();
+            });
+
+            $("#RoomCapacity").change(function () {
+                capacityChange();
+            });
+
+            $(".rdFormulaBase").change(function () {
+                var conf = confirm("changing the Base Occupancy will delete all existing Formulas, are you want to change base occupancy?");
+                if (conf) {
+                    var capacity = this.value;
+                    var minCap = $("#MinCapacity").val();
+                    var maxCap = $("#RoomCapacity").val();
+
+                    $(".rdFormulaBase").removeAttr("disabled");
+                    $(this).attr("disabled", "disabled");
+
+                    $(".clacIcon").show();
+                    $("#divCalc_" + capacity).hide();
+
+                    $.ajax({
+                        url: "/Hotel/UpdateBaseOccupancy",
+                        type: "POST",
+                        data: { baseCapacity: capacity, roomID: roomId, maxCapacity: maxCap, minCapacity: minCap },
+                        success: function (result) {
+                        }
+                    });
+                }
+            });
+            $(".FormulaCalculator").click(function () {
+                var capacity = $(this).attr("data-Capacity");
+
+                $.ajax({
+                    url: "/Hotel/RoomOccpancy",
+                    type: "GET",
+                    data: { roomId: roomId, capacity: capacity },
+                    success: function (result) {
+                        $("#occupancyModal").html(result);
+
+                        $("#btnSubFormula").click(function () {
+                            $("#formulaModal").hide();
+                        });
+
+                    }
+                });
+            });
+            setupRoomModal();
+
+        });
+        function setupRoomModal() {
+
+            if ($("#IsBase").attr("checked"))
+                $("#divSupplements").hide();
+
+            if ($("#isPrecentage").val() !== "true")
+                $("#precenMark").hide();
+
+            capacityChange();
+        }
+
+        function capacityChange() {
+            var minCap = $("#MinCapacity").val();
+            var maxCap = $("#RoomCapacity").val();
+
+            if (minCap == maxCap)
+                $("#divOccupancyFormulas").hide();
+            else
+                $("#divOccupancyFormulas").show();
+
+        }
+
+    </script>
+}
+

@@ -1,0 +1,48 @@
+﻿@model IEnumerable<OtelSpider.Web.ViewModels.OTAViewModel>
+
+@{
+    ViewBag.Title = "OTA";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>OTA</h2>
+
+<div class="card mb-3">
+    <div class="card-header-tab card-header">
+        <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+            @Html.ActionLink("Create New", "Create", null, new { @class = "btn mr-2 mb-2 btn-primary" })
+        </div>
+    </div>
+    <div class="card-body">
+
+        <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.WebURL)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.WebURL)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                        </td>
+                    </tr>
+                }
+
+        </table>
+    </div>
+</div>

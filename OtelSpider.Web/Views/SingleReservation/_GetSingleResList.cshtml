@@ -1,0 +1,54 @@
+﻿@model IEnumerable<OtelSpider.Web.ViewModels.SingleReservationVM>
+<div class="card mb-3">
+    <div class="card-header-tab card-header">
+        <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+        </div>
+        <div class="btn-actions-pane-right actions-icon-btn">
+            <button type="button" id="btnShowModal" class="btn mr-2 mb-2 btn-primary" data-toggle="modal" data-target="#importModal">
+                Import
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+        <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered">
+            <thead>
+                <tr style="font-size:0.75rem">
+                    <th>@Html.DisplayNameFor(model => model.ReservationRefID)</th>
+                    <th>@Html.DisplayNameFor(model => model.Hotel.Name)</th>
+                    <th>@Html.DisplayNameFor(model => model.OTA.Name)</th>
+                    <th>@Html.DisplayNameFor(model => model.VisitorName)</th>
+                    <th>@Html.DisplayNameFor(model => model.CheckinDate)</th>
+                    <th>@Html.DisplayNameFor(model => model.CheckoutDate)</th>
+                    <th>@Html.DisplayNameFor(model => model.NightsNum)</th>
+                    <th>@Html.DisplayNameFor(model => model.RoomType.Type)</th>
+                    <th>@Html.DisplayNameFor(model => model.MealPlanName)</th>
+                    <th>@Html.DisplayNameFor(model => model.Discount)</th>
+                    <th>@Html.DisplayNameFor(model => model.Total)</th>
+                    <th>@Html.DisplayNameFor(model => model.Status)</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                    <tr data-toggle="modal" data-target="#resDetailsModal" class="singleRes" data-Id="@item.ID">
+                        <td>@Html.DisplayFor(modelItem => item.ReservationRefID)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Hotel.Name)</td>
+                        <td>@Html.DisplayFor(modelItem => item.OTA.Name)</td>
+                        <td>@Html.DisplayFor(modelItem => item.VisitorName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.CheckinDate.ToShortDateString())</td>
+                        <td>@Html.DisplayFor(modelItem => item.CheckoutDate.HasValue ? item.CheckoutDate.Value.ToShortDateString() : "")</td>
+                        <td>@Html.DisplayFor(modelItem => item.NightsNum)</td>
+                        <td>@Html.DisplayFor(modelItem => item.RoomType.Type)</td>
+                        <td>@Html.DisplayFor(modelItem => item.MealPlanName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Discount)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Total) @Html.DisplayFor(modelItem => item.CurrencyCode)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Status)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+
+</div>

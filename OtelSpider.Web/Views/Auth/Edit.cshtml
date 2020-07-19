@@ -1,0 +1,52 @@
+﻿@model OtelSpider.Web.ViewModels.UserViewModel
+
+@{
+    ViewBag.Title = "Edit User";
+}
+
+<h2>Manage User</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>@Model.FirstName @Model.LastName</h4>
+        <hr />
+        <div class="form-group">
+            @Html.LabelFor(model => model.isAdmin, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <label class="switch">
+                    @Html.CheckBoxFor(model => model.isAdmin)
+                    <div class="slider round">
+                    </div>
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.isActive, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <label class="switch">
+                    @Html.CheckBoxFor(model => model.isActive)
+                    <div class="slider round">
+                    </div>
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

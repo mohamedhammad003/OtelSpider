@@ -1,0 +1,79 @@
+﻿@model IEnumerable<OtelSpider.Web.ViewModels.HotelBudgetViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Budgets</h2>
+
+<div class="card mb-3">
+    <div class="card-header-tab card-header">
+        <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+            @Html.ActionLink("Create New", "Create", null, new { @class = "btn mr-2 mb-2 btn-primary" })
+        </div>
+    </div>
+    <div class="card-body">
+        <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered">
+
+            <tr style="font-size:0.75rem">
+                <th>@Html.DisplayNameFor(model => model.Budget.Hotel.Name)</th>
+                <th>@Html.DisplayNameFor(model => model.Budget.Year)</th>
+                <th>Type</th>
+                <th>@Html.DisplayNameFor(model => model.Budget.January)</th>
+                <th>@Html.DisplayNameFor(model => model.Budget.February)</th>
+                <th>@Html.DisplayNameFor(model => model.Budget.March)</th>
+                <th>@Html.DisplayNameFor(model => model.Budget.April)</th>
+                <th>@Html.DisplayNameFor(model => model.Budget.May)</th>
+                <th>@Html.DisplayNameFor(model => model.Budget.June)</th>
+                <th>@Html.DisplayNameFor(model => model.Budget.July)</th>
+                <th>@Html.DisplayNameFor(model => model.Budget.August)</th>
+                <th>@Html.DisplayNameFor(model => model.Budget.September)</th>
+                <th>@Html.DisplayNameFor(model => model.Budget.October)</th>
+                <th>@Html.DisplayNameFor(model => model.Budget.November)</th>
+                <th>@Html.DisplayNameFor(model => model.Budget.December)</th>
+                <th></th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td rowspan="2">@Html.DisplayFor(modelItem => item.Budget.Hotel.Name)</td>
+                    <td rowspan="2">@Html.DisplayFor(modelItem => item.Budget.Year)</td>
+                    <td>Room Revenue</td>
+                    <td>@Html.DisplayFor(modelItem => item.Budget.January)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Budget.February)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Budget.March)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Budget.April)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Budget.May)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Budget.June)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Budget.July)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Budget.August)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Budget.September)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Budget.October)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Budget.November)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Budget.December)</td>
+                    <td rowspan="2">
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Budget.ID }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Budget.ID })
+                    </td>
+                </tr>
+                <tr>
+                    <td>Room Nights</td>
+                    <td>@Html.DisplayFor(modelItem => item.RoomNights.January)</td>
+                    <td>@Html.DisplayFor(modelItem => item.RoomNights.February)</td>
+                    <td>@Html.DisplayFor(modelItem => item.RoomNights.March)</td>
+                    <td>@Html.DisplayFor(modelItem => item.RoomNights.April)</td>
+                    <td>@Html.DisplayFor(modelItem => item.RoomNights.May)</td>
+                    <td>@Html.DisplayFor(modelItem => item.RoomNights.June)</td>
+                    <td>@Html.DisplayFor(modelItem => item.RoomNights.July)</td>
+                    <td>@Html.DisplayFor(modelItem => item.RoomNights.August)</td>
+                    <td>@Html.DisplayFor(modelItem => item.RoomNights.September)</td>
+                    <td>@Html.DisplayFor(modelItem => item.RoomNights.October)</td>
+                    <td>@Html.DisplayFor(modelItem => item.RoomNights.November)</td>
+                    <td>@Html.DisplayFor(modelItem => item.RoomNights.December)</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+

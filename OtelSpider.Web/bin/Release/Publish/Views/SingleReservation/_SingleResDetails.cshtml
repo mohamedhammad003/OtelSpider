@@ -1,0 +1,165 @@
+﻿@model OtelSpider.Web.ViewModels.SingleReservationVM
+<div class="card mb-3">
+    <div class="card-body">
+        <div>
+            <h4>
+                @Html.DisplayFor(model => model.ReservationRefID)
+            </h4>
+            <hr />
+            <dl class="dl-horizontal">
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Hotel.Name)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Hotel.Name)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.OTA.Name)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.OTA.Name)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ReservationRefID)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ReservationRefID)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Status)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Status)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.VisitorName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.VisitorName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.VisitorEmail)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.VisitorEmail)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.PhoneNum)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.PhoneNum)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Nationality)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Nationality)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.CheckinDate)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.CheckinDate)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.CheckoutDate)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.CheckoutDate)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.NightsNum)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.NightsNum)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.RoomPrice) (AVG)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.RoomPrice) @Html.DisplayFor(model => model.CurrencyCode)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Price)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Price) @Html.DisplayFor(model => model.CurrencyCode)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.PromoCode)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.PromoCode)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Discount)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Discount)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Total)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Total) @Html.DisplayFor(model => model.CurrencyCode)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ReservationType)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ReservationType)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.RoomType.Type)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.RoomType.Type)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.MealPlanName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.MealPlanName)
+                </dd>
+            </dl>
+        </div>
+    </div>
+</div>

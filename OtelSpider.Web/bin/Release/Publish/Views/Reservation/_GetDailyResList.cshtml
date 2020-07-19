@@ -1,0 +1,63 @@
+﻿@model IEnumerable<OtelSpider.Web.ViewModels.DailyReservationVM>
+<div class="card mb-3">
+    <div class="card-header-tab card-header">
+        <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+            
+        </div>
+        <div class="btn-actions-pane-right actions-icon-btn">
+            <button type="button" id="btnShowModal" class="btn mr-2 mb-2 btn-primary" data-toggle="modal" data-target="#importModal">
+                Import
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+        <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered">
+            <thead>
+                <tr style="position: sticky;">
+                    <th>Hotel</th>
+                    <th>OTA</th>
+                    <th>Reservation Day</th>
+                    <th>Room Nights</th>
+                    <th>Gross Room Revenue</th>
+                    <th>Gross ARR</th>
+                    <th>Net Room Revenue</th>
+                    <th>Net ARR</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Hotel.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.OTA.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ReservationDay)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RoomNights)
+                        </td>
+                        <td>
+                            $@Html.DisplayFor(modelItem => item.GrossRoomRevenue)
+                        </td>
+                        <td>
+                            $@Html.DisplayFor(modelItem => item.NetRoomRevenue)
+                        </td>
+                        <td>
+                            $@Html.DisplayFor(modelItem => item.GrossARR)
+                        </td>
+                        <td>
+                            $@Html.DisplayFor(modelItem => item.NetARR)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+
+</div>

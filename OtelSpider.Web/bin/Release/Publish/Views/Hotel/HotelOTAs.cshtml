@@ -1,0 +1,70 @@
+﻿@model IEnumerable<OtelSpider.Web.ViewModels.HotelOTAViewModel>
+
+@{
+    ViewBag.Title = "HotelOTAs";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>HotelOTAs</h2>
+
+<div class="main-card mb-3 card">
+    <div class="card-body">
+        <div class="card-header-tab card-header">
+            <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+                @Html.ActionLink("Create New", "AddHotelOTA", null, new { @class = "btn mr-2 mb-2 btn-primary" })
+            </div>
+        </div>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Hotel.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OTA.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CommissionPercentage)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IncludeVAT)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ExtranetURL)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserName)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HotelID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OTAID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CommissionPercentage)
+                    </td>
+                    <td>
+                        @Html.CheckBoxFor(modelItem => item.IncludeVAT, new { @style = "disable:disable" })
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ExtranetURL)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserName)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "EditHotelOTA", new { id = item.ID }) |
+                        @Html.ActionLink("Delete", "DeleteHotelOTA", new { id = item.ID })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>

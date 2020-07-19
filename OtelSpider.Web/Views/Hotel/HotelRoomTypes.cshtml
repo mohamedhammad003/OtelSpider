@@ -1,0 +1,213 @@
+﻿@model IEnumerable<OtelSpider.Web.ViewModels.RoomTypeViewModel>
+
+@{
+    ViewBag.Title = "Hotel Room Types";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Hotel Room Types</h2>
+
+<div class="card mb-3">
+    <div class="card-header-tab card-header">
+        @*<div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+            <button type="button" id="btnCreateRoomTypes" class="btn btn-primary" data-toggle="modal" data-target="#AddEditModal">
+                Add Room Type
+            </button>
+        </div>*@
+        <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+            @Html.ActionLink("Create", "CreateRoomType", null, new { @class = "btn mr-2 mb-2 btn-primary" })
+        </div>
+    </div>
+    <div class="card-body">
+        <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Hotel.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Type)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RoomCapacity)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Abbreviation)
+                    </th>
+                    <td>
+                        @Html.DisplayNameFor(model => model.IsBase)
+                    </td>
+                    <th></th>
+                </tr>
+            </thead>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Hotel.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Type)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RoomCapacity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Abbreviation)
+                    </td>
+                    <td>
+                        @Html.CheckBoxFor(modelItem => item.IsBase, new { @disabled = "disabled" })
+                    </td>
+                    <td>
+
+                        @Html.ActionLink("Edit", "EditRoomType", new { id = item.ID })
+                        |
+                        @Html.ActionLink("Delete", "DeleteRoomType", new { id = item.ID })
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade bd-example-modal-lg show" id="AddEditModal" data-backdrop="static" data-keyboard="false" tabindex="-2" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="form">
+        <div class="modal-content">
+            <div class="modal-body" id="modalBody">
+
+            </div>
+            <div class="modal-footer text-center" id="dvTablesAreaFooter">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".btnEditRoomTypes").click(function () {
+                var id = $(this).attr("data-id");
+                EditRoomType(id);
+            });
+            $("#btnCreateRoomTypes").click(function () {
+                AddRoomType();
+            });
+            function EditRoomType(id) {
+                $.ajax({
+                    url: "/Hotel/_EditRoomType",
+                    type: "GET",
+                    data: { id: id },
+                    success: function (result) {
+                        showModal(result);
+                    }
+                });
+            }
+            function AddRoomType() {
+                $.ajax({
+                    url: "/Hotel/_CreateRoomType",
+                    type: "GET",
+                    success: function (result) {
+                        showModal(result);
+                    }
+                });
+            }
+            function showModal(result) {
+                $("#modalBody").html(result);
+                $("#IsBase").click(function () {
+                    if (this.checked)
+                        $("#divSupplements").hide();
+                    else
+                        $("#divSupplements").show();
+
+                });
+
+                $("#isPrecentage").change(function () {
+                    if ($(this).val() == "true")
+                        $("#precenMark").show();
+                    else
+                        $("#precenMark").hide();
+
+                });
+
+                $("#btnSubmit").click(function () {
+                    var roomMealPlans = [];
+                    var roomId = $("#ID").val();
+                    $(".chkMealPlans").each(function () {
+                        if (this.checked)
+                            roomMealPlans.push(this.value);
+                    });
+                    $.ajax({
+                        url: "/Hotel/UpdateRoomMealPlans",
+                        type: "POST",
+                        data: { mealIDs: roomMealPlans, roomID: roomId },
+                        success: function (result) {
+                        }
+                    });
+                });
+
+                $("#MinCapacity").change(function () {
+                    //e.preventDefault;
+                    capacityChange();
+                });
+
+                $("#RoomCapacity").change(function () {
+                    capacityChange();
+                });
+
+                $(".rdFormulaBase").change(function () {
+                    var conf = confirm("changing the Base Occupancy will delete all existing Formulas, are you want to change base occupancy?");
+                    if (conf) {
+                        var roomId = $("#ID").val();
+                        var capacity = this.value;
+                        var minCap = $("#MinCapacity").val();
+                        var maxCap = $("#RoomCapacity").val();
+
+                        $(".rdFormulaBase").removeAttr("disabled");
+                        $(this).attr("disabled", "disabled");
+
+                        $(".clacIcon").show();
+                        $("#divCalc_" + capacity).hide();
+
+                        $.ajax({
+                            url: "/Hotel/UpdateBaseOccupancy",
+                            type: "POST",
+                            data: { baseCapacity: capacity, roomID: roomId, maxCapacity: maxCap, minCapacity: minCap },
+                            success: function (result) {
+                            }
+                        });
+                    }
+                });
+                $(".FormulaCalculator").click(function () { });
+                setupRoomModal();
+
+            }
+            function setupRoomModal() {
+
+                if ($("#IsBase").attr("checked"))
+                    $("#divSupplements").hide();
+
+                if ($("#isPrecentage").val() !== "true")
+                    $("#precenMark").hide();
+
+                capacityChange();
+            }
+
+            function capacityChange() {
+                var minCap = $("#MinCapacity").val();
+                var maxCap = $("#RoomCapacity").val();
+
+                if (minCap == maxCap)
+                    $("#divOccupancyFormulas").hide();
+                else
+                    $("#divOccupancyFormulas").show();
+
+            }
+        });
+    </script>
+}
+

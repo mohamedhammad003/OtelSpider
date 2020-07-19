@@ -1,0 +1,71 @@
+﻿@model OtelSpider.Web.ViewModels.occupancyFormulaVM
+
+<div class="card mb-3">
+    <div class="card-body">
+        @using (Html.BeginForm("UpdateFormula", "Hotel"))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h4>@ViewBag.Capacity Adult</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.ID)
+                @Html.HiddenFor(model => model.RoomTypeID)
+                @Html.HiddenFor(model => model.Capacity)
+                @Html.HiddenFor(model => model.IsBase)
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.isSubstraction, htmlAttributes: new { @class = "control-label col-md-10" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.isSubstraction, new List<SelectListItem>() {
+                                           new SelectListItem() { Text = "Addition", Value = "false" },
+                                           new SelectListItem() { Text = "Substract", Value = "true" }}, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.isSubstraction, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.AdditionalValue, htmlAttributes: new { @class = "control-label col-md-10" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.AdditionalValue, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.AdditionalValue, "", new { @class = "text-danger" })
+                        @*<span id="precenMark" style="margin-left: -10px;">%</span>*@
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.isPrecentage, htmlAttributes: new { @class = "control-label col-md-10" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.isPrecentage, new List<SelectListItem>() {
+                                           new SelectListItem() { Text = "Precentage", Value = "true" },
+                                           new SelectListItem() { Text = "Amount", Value = "false" } }, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.isPrecentage, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" id="btnSubFormula" class="mt-1 btn btn-primary" />
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if ($("#isPrecentage").val() !== "true")
+                $("#precenMark").hide();
+
+            $("#isPrecentage").change(function () {
+                if ($(this).val() == "true")
+                    $("#precenMark").show();
+                else
+                    $("#precenMark").hide();
+
+            });
+        });
+    </script>
+}
